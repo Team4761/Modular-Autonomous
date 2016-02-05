@@ -11,8 +11,10 @@ Config.set('graphics', 'height', '480')
 
 class MyPaintApp(App):
 	
-	defenses = ['Portcullis','Cheval\nde Frise','Moat','Ramparts','Drawbridge', 'Sally Port','Rock Wall', 'Rough Terrain']
+	defenses = ('Portcullis','Cheval\nde Frise','Moat','Ramparts','Drawbridge', 'Sally Port','Rock Wall', 'Rough Terrain')
 	robot = ['', 'Robot']
+	loop = ['1', '2', '3']
+	Pickup_Drop = ['Pick Up', 'Drop']
 	configmode = True
 	lastrobotbutton = None
 	
@@ -25,6 +27,8 @@ class MyPaintApp(App):
 	b9index=0
 	b10index=0
 	b11index=0
+	b12index=0
+	b13index=0
 	
 	b1 = None
 	b2 = None
@@ -37,23 +41,24 @@ class MyPaintApp(App):
 	b9 = None
 	b10 = None
 	b11 = None
-	
+	b12 = None
+	b13=None
 	#Puts together the window, and the widgets in it
 	def build(self):
 		parent = Image(source ='/home/dev2/dev/kivy/redside480.png')
 		
 		self.b1 = Button(text='Low Bar', pos=(480, 28), size=(100, 75))
 		
-		self.b2 = Button(text='B2', pos=(480, 95), size=(100, 75) )
+		self.b2 = Button(text= self.defenses[0], pos=(480, 95), size=(100, 75))
 		self.b2.bind(on_release=self.b2_callback)
 
-		self.b3 = Button(text='B3', pos=(480, 168), size=(100, 75)) 
+		self.b3 = Button(text=self.defenses[0], pos=(480, 168), size=(100, 75)) 
 		self.b3.bind(on_release=self.b3_callback)
 		
-		self.b4 = Button(text='B4', pos=(480, 240), size=(100, 75))
+		self.b4 = Button(text=self.defenses[0], pos=(480, 240), size=(100, 75))
 		self.b4.bind(on_release=self.b4_callback)
 
-		self.b5 = Button(text='B5', pos=(480, 313), size=(100, 75)) 
+		self.b5 = Button(text=self.defenses[0], pos=(480, 313), size=(100, 75)) 
 		self.b5.bind(on_release=self.b5_callback)
 		
 		self.b6 = Button(text='Config Mode', pos=(0,300), size=(100, 100)) 
@@ -74,6 +79,12 @@ class MyPaintApp(App):
 		self.b11 = Button(text=' ', pos=(578,28), size=(100, 69)) 
 		self.b11.bind(on_release=self.b11_callback)
 		
+		self.b12 = Button(text= self.loop[0], pos=(750, 430), size=(50, 50))
+		self.b12.bind(on_release=self.b12_callback)
+		
+		self.b13 = Button(text= self.Pickup_Drop[0], pos=(0, 0), size=(100, 100))
+		self.b13.bind(on_release=self.b13_callback)
+		
 		parent.add_widget(self.b1)
 		parent.add_widget(self.b2)
 		parent.add_widget(self.b3)
@@ -85,6 +96,8 @@ class MyPaintApp(App):
 		parent.add_widget(self.b9)
 		parent.add_widget(self.b10)
 		parent.add_widget(self.b11)
+		parent.add_widget(self.b12)
+		parent.add_widget(self.b13)
 		return parent
 		
 	def b2_callback(self, obj):
@@ -93,7 +106,7 @@ class MyPaintApp(App):
 			if self.b2index > 7:
 				self.b2index = 0
 			obj.text=self.defenses[self.b2index]
-			print 'configMode Button2'
+			#print 'configMode Button2'
 		
 	def b3_callback(self, obj):
 		if self.configmode == True:
@@ -101,7 +114,7 @@ class MyPaintApp(App):
 			if self.b3index > 7:
 				self.b3index = 0
 			obj.text=self.defenses[self.b3index]
-			print 'Button3'
+			#print 'Button3'
 		
 	def b4_callback(self, obj):
 		if self.configmode == True:
@@ -109,7 +122,7 @@ class MyPaintApp(App):
 			if self.b4index > 7:
 				self.b4index = 0
 			obj.text=self.defenses[self.b4index]
-			print 'Button4'
+			#print 'Button4'
 		
 	def b5_callback(self, obj):
 		if self.configmode == True:
@@ -117,7 +130,7 @@ class MyPaintApp(App):
 			if self.b5index > 7:
 				self.b5index = 0
 			obj.text=self.defenses[self.b5index]
-			print 'Button5'
+			#print 'Button5'
 			
 	def b6_callback(self, obj):
 		if self.configmode == True:
@@ -126,7 +139,7 @@ class MyPaintApp(App):
 		else:
 			self.configmode = True
 			obj.text = 'ConfigMode'
-		print 'Button6'
+		#print 'Button6'
 		
 	def b7_callback(self, obj):
 		if self.configmode == True:
@@ -139,7 +152,7 @@ class MyPaintApp(App):
 					self.lastrobotbutton.text = self.robot[0]
 				self.set_text_index(self.lastrobotbutton, 0)
 				self.lastrobotbutton = obj
-		print '7'
+		#print '7'
 			
 	def b8_callback(self, obj):
 		if self.configmode == True:
@@ -152,7 +165,7 @@ class MyPaintApp(App):
 					self.lastrobotbutton.text = self.robot[0]
 				self.set_text_index(self.lastrobotbutton, 0)
 				self.lastrobotbutton = obj
-		print '8'
+		#print '8'
 		
 	def b9_callback(self, obj):
 		if self.configmode == True:
@@ -165,7 +178,7 @@ class MyPaintApp(App):
 					self.set_text_index(self.lastrobotbutton, 0)
 				self.lastrobotbutton.text = self.robot[0]
 				self.lastrobotbutton = obj
-		print '9'
+		#print '9'
 			
 	def b10_callback(self, obj):
 		if self.configmode == True:
@@ -178,7 +191,7 @@ class MyPaintApp(App):
 					self.lastrobotbutton.text = self.robot[0]
 				self.set_text_index(self.lastrobotbutton, 0)
 				self.lastrobotbutton = obj
-		print '10'
+		#print '10'
 			
 	def b11_callback(self, obj):
 		if self.configmode == True:
@@ -191,12 +204,28 @@ class MyPaintApp(App):
 					self.lastrobotbutton.text = self.robot[0]
 				self.set_text_index(self.lastrobotbutton, 0)
 				self.lastrobotbutton = obj
-		print '11'
+		#print '11'
+
+	def b12_callback(self, obj):
+		if self.configmode == True:
+			self.b12index = self.b12index + 1
+			if self.b12index > 2:
+				self.b12index = 0
+			obj.text=self.loop[self.b12index]
+			#print 'b12'
+	def b13_callback(self, obj):
+		if self.configmode == True:
+			self.b13index = self.b13index + 1
+			if self.b13index > 1:
+				self.b13index = 0
+			obj.text=self.Pickup_Drop[self.b13index]
+			#print 'b13'
 			
 	def set_text_index(self, obj, list_index):
-		print "checking for object"
-		print obj
-		print self.b11
+		#print "checking for object"
+		
+		#print obj
+		#print self.b11
 		if self.b11 is obj:
 			self.b11index = list_index
 		if self.b10 is obj:
