@@ -65,6 +65,9 @@ class MyPaintApp(App):
 		self.pick_drop_button1 = Button(text= self.Pickup_Drop[0], pos=(0, 0), size=(100, 100))
 		self.pick_drop_button1.bind(on_release=self.pick_drop_button1_callback)
 		
+		self.send_button1 = Button(text='Send', pos=(0, 400), size=(100, 100)) 
+		self.send_button1.bind(on_release=self.send_button1_callback)
+		
 		parent.add_widget(self.defense_button1)
 		parent.add_widget(self.defense_button2)
 		parent.add_widget(self.defense_button3)
@@ -78,6 +81,7 @@ class MyPaintApp(App):
 		parent.add_widget(self.position_button5)
 		parent.add_widget(self.loop_button1)
 		parent.add_widget(self.pick_drop_button1)
+		parent.add_widget(self.send_button1)
 		return parent
 			
 	def defense_callback(self, obj, index):
@@ -122,7 +126,6 @@ class MyPaintApp(App):
 			
 	def position_button1_callback(self, obj):
 		self.robot_start_position_callback(obj, 0) 
-		
 			
 	def position_button2_callback(self, obj):
 		self.robot_start_position_callback(obj, 1)
@@ -151,20 +154,24 @@ class MyPaintApp(App):
 			obj.text=self.Pickup_Drop[self.pick_drop_button1_index]
 			#print 'pick_drop_button1'
 			
+	def send_button1_callback(self, obj):
+		if self.configmode == True:
+			pass
+			
 	def set_text_index(self, obj, list_index):
 		#print "checking for object"
 		
 		#print obj
 		#print self.position_button5
 		if self.position_button5 is obj:
-			self.position_button5index = list_index
+			self.position_index[4] = list_index
 		if self.position_button4 is obj:
-			self.position_button4index = list_index
+			self.position_index[3] = list_index
 		if self.position_button3 is obj:
-			self.position_button3index = list_index
+			self.position_index[2] = list_index
 		if self.position_button2 is obj:
-			self.position_button2index = list_index		
+			self.position_index[1] = list_index		
 		if self.position_button1 is obj:
-			self.position_button1index = list_index	
+			self.position_index[0] = list_index	
 if __name__ == '__main__':
 	MyPaintApp().run()
