@@ -20,8 +20,9 @@ class MyPaintApp(App):
 	last_robot_button = None
 	button_index=[0,0,0,0]
 	position_index=[0,0,0,0,0]
-	high_low = ['High', 'Low']
-
+	high_low_index = ['High', 'Low']
+	
+	high_low_buttonindex=0
 	loop_button1_index=0
 	pick_drop_button1_index=0
 	Shot_Button_index=0
@@ -76,6 +77,9 @@ class MyPaintApp(App):
 		self.shot_button = Button(text= self.shot_index[0], pos=(100, 200), size=(100, 100)) 
 		self.shot_button.bind(on_release=self.shot_button_callback)
 		
+		self.shot_height_button = Button(text= self.high_low_index[0], pos=(200, 200), size=(100, 100)) 
+		self.shot_height_button.bind(on_release=self.height_button_callback)
+		
 		parent.add_widget(self.defense_button1)
 		parent.add_widget(self.defense_button2)
 		parent.add_widget(self.defense_button3)
@@ -92,6 +96,7 @@ class MyPaintApp(App):
 		parent.add_widget(self.send_button1)
 		parent.add_widget(self.spy_position)
 		parent.add_widget(self.shot_button)
+		parent.add_widget(self.shot_height_button)
 		return parent
 			
 	def defense_callback(self, obj, index):
@@ -178,6 +183,12 @@ class MyPaintApp(App):
 			if self.Shot_Button_index > 2:
 				self.Shot_Button_index = 0
 			obj.text=self.shot_index[self.Shot_Button_index]
+	def height_button_callback(self, obj):
+		if self.configmode == True:
+			self.high_low_buttonindex = self.high_low_buttonindex + 1
+			if self.high_low_buttonindex > 1:
+				self.high_low_buttonindex = 0
+			obj.text=self.high_low_index[self.high_low_buttonindex]
 			
 	def set_text_index(self, obj, list_index):
 		#print "checking for object"
