@@ -15,14 +15,16 @@ class MyPaintApp(App):
 	robot = ['', 'Robot']
 	loop = ['1', '2', '3']
 	Pickup_Drop = ['Pick Up', 'Drop']
+	shot_index = ['Right', 'Middle', 'left']
 	configmode = True
 	last_robot_button = None
 	button_index=[0,0,0,0]
 	position_index=[0,0,0,0,0]
+	high_low = ['High', 'Low']
 
 	loop_button1_index=0
 	pick_drop_button1_index=0
-
+	Shot_Button_index=0
 	#Puts together the window, and the widgets in it
 	def build(self):
 		parent = Image(source ='/home/dev2/dev/kivy/redside480.png')
@@ -68,6 +70,12 @@ class MyPaintApp(App):
 		self.send_button1 = Button(text='Send', pos=(0, 400), size=(100, 100)) 
 		self.send_button1.bind(on_release=self.send_button1_callback)
 		
+		self.spy_position = Button(text='Spy Position', pos=(0, 100), size=(100, 100)) 
+		self.spy_position.bind(on_release=self.spy_position_callback)
+		
+		self.shot_button = Button(text= self.shot_index[0], pos=(100, 200), size=(100, 100)) 
+		self.shot_button.bind(on_release=self.shot_button_callback)
+		
 		parent.add_widget(self.defense_button1)
 		parent.add_widget(self.defense_button2)
 		parent.add_widget(self.defense_button3)
@@ -82,6 +90,8 @@ class MyPaintApp(App):
 		parent.add_widget(self.loop_button1)
 		parent.add_widget(self.pick_drop_button1)
 		parent.add_widget(self.send_button1)
+		parent.add_widget(self.spy_position)
+		parent.add_widget(self.shot_button)
 		return parent
 			
 	def defense_callback(self, obj, index):
@@ -157,6 +167,17 @@ class MyPaintApp(App):
 	def send_button1_callback(self, obj):
 		if self.configmode == True:
 			pass
+			
+	def spy_position_callback(self, obj):
+		if self.configmode == True:
+			pass
+			
+	def shot_button_callback(self, obj):
+		if self.configmode == True:
+			self.Shot_Button_index = self.Shot_Button_index + 1
+			if self.Shot_Button_index > 2:
+				self.Shot_Button_index = 0
+			obj.text=self.shot_index[self.Shot_Button_index]
 			
 	def set_text_index(self, obj, list_index):
 		#print "checking for object"
