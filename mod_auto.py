@@ -15,12 +15,14 @@ class MyPaintApp(App):
 	robot = ['', 'Robot']
 	loop = ['1', '2', '3']
 	Pickup_Drop = ['Pick Up', 'Drop']
-	shot_index = ['Right', 'Middle', 'left']
+	shot_index = ['Right', 'Middle', 'Left']
 	configmode = True
 	last_robot_button = None
 	button_index=[0,0,0,0]
 	position_index=[0,0,0,0,0]
 	high_low_index = ['High', 'Low']
+	spy_index=['Spy\n Position\n on','Spy\n Position\n off']
+	#return_index['Return On', 'Return Off']
 	
 	high_low_buttonindex=0
 	loop_button1_index=0
@@ -77,8 +79,11 @@ class MyPaintApp(App):
 		self.shot_button = Button(text= self.shot_index[0], pos=(100, 200), size=(100, 100)) 
 		self.shot_button.bind(on_release=self.shot_button_callback)
 		
-		self.shot_height_button = Button(text= self.high_low_index[0], pos=(200, 200), size=(100, 100)) 
+		self.shot_height_button = Button(text= self.high_low_index[0], pos=(200, 300), size=(100, 100)) 
 		self.shot_height_button.bind(on_release=self.height_button_callback)
+		
+		self.return_button = Button(text= 'RETURN', pos=(200, 200), size=(100, 100)) 
+		self.return_button.bind(on_release=self.return_button_callback)
 		
 		parent.add_widget(self.defense_button1)
 		parent.add_widget(self.defense_button2)
@@ -97,6 +102,7 @@ class MyPaintApp(App):
 		parent.add_widget(self.spy_position)
 		parent.add_widget(self.shot_button)
 		parent.add_widget(self.shot_height_button)
+		parent.add_widget(self.return_button)
 		return parent
 			
 	def defense_callback(self, obj, index):
@@ -175,7 +181,10 @@ class MyPaintApp(App):
 			
 	def spy_position_callback(self, obj):
 		if self.configmode == True:
-			pass
+			obj.text = 'Spy\n Position\n on'
+		else:
+			self.configmode = True
+			obj.text = 'Spy\n Position\n off'
 			
 	def shot_button_callback(self, obj):
 		if self.configmode == True:
@@ -189,6 +198,17 @@ class MyPaintApp(App):
 			if self.high_low_buttonindex > 1:
 				self.high_low_buttonindex = 0
 			obj.text=self.high_low_index[self.high_low_buttonindex]
+			
+	def send_button1_callback(self, obj):
+		if self.configmode == True:
+			pass
+			
+	def return_button_callback(self, obj):
+		if self.configmode == True:
+			obj.text = 'Return On'
+		else:
+			self.configmode = True
+			obj.text = 'Return Off'
 			
 	def set_text_index(self, obj, list_index):
 		#print "checking for object"
