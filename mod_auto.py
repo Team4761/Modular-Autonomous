@@ -22,12 +22,14 @@ class MyPaintApp(App):
 	position_index=[0,0,0,0,0]
 	high_low_index = ['High', 'Low']
 	spy_index=['Spy\n Position\n on','Spy\n Position\n off']
-	#return_index['Return On', 'Return Off']
+	return_index=['Return On', 'Return Off']
 	
 	high_low_buttonindex=0
 	loop_button1_index=0
 	pick_drop_button1_index=0
 	Shot_Button_index=0
+	return_button_index=0
+	spy_button_index=0
 	#Puts together the window, and the widgets in it
 	def build(self):
 		parent = Image(source ='/home/dev2/dev/kivy/redside480.png')
@@ -181,10 +183,10 @@ class MyPaintApp(App):
 			
 	def spy_position_callback(self, obj):
 		if self.configmode == True:
-			obj.text = 'Spy\n Position\n on'
-		else:
-			self.configmode = True
-			obj.text = 'Spy\n Position\n off'
+			self.spy_button_index = self.spy_button_index + 1
+			if self.spy_button_index > 2:
+				self.spy_button_index = 0
+			obj.text=self.spy_button_index[self.spy_index]
 			
 	def shot_button_callback(self, obj):
 		if self.configmode == True:
@@ -192,6 +194,7 @@ class MyPaintApp(App):
 			if self.Shot_Button_index > 2:
 				self.Shot_Button_index = 0
 			obj.text=self.shot_index[self.Shot_Button_index]
+			
 	def height_button_callback(self, obj):
 		if self.configmode == True:
 			self.high_low_buttonindex = self.high_low_buttonindex + 1
@@ -205,16 +208,12 @@ class MyPaintApp(App):
 			
 	def return_button_callback(self, obj):
 		if self.configmode == True:
-			obj.text = 'Return On'
-		else:
-			self.configmode = True
-			obj.text = 'Return Off'
+			self.return_button_index = self.return_button_index + 1
+			if self.return_button_index > 1:
+				self.return_button_index = 0
+			obj.text=self.return_index[self.return_button_index]
 			
 	def set_text_index(self, obj, list_index):
-		#print "checking for object"
-		
-		#print obj
-		#print self.position_button5
 		if self.position_button5 is obj:
 			self.position_index[4] = list_index
 		if self.position_button4 is obj:
