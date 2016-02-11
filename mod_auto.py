@@ -27,7 +27,7 @@ class MyPaintApp(App):
 	high_low_buttonindex=0
 	loop_button1_index=0
 	pick_drop_button1_index=0
-	Shot_Button_index=0
+	shot_Button_index=0
 	return_button_index=0
 	spy_button_index=0
 	#Puts together the window, and the widgets in it
@@ -184,16 +184,16 @@ class MyPaintApp(App):
 	def spy_position_callback(self, obj):
 		if self.configmode == True:
 			self.spy_button_index = self.spy_button_index + 1
-			if self.spy_button_index > 2:
+			if self.spy_button_index > 1:
 				self.spy_button_index = 0
-			obj.text=self.spy_button_index[self.spy_index]
+			obj.text=self.spy_index[self.spy_button_index]
 			
 	def shot_button_callback(self, obj):
 		if self.configmode == True:
-			self.Shot_Button_index = self.Shot_Button_index + 1
-			if self.Shot_Button_index > 2:
-				self.Shot_Button_index = 0
-			obj.text=self.shot_index[self.Shot_Button_index]
+			self.shot_Button_index = self.shot_Button_index + 1
+			if self.shot_Button_index > 2:
+				self.shot_Button_index = 0
+			obj.text=self.shot_index[self.shot_Button_index]
 			
 	def height_button_callback(self, obj):
 		if self.configmode == True:
