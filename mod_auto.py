@@ -1,4 +1,3 @@
-from random import random
 from kivy.app import App
 from kivy.config import Config
 from kivy.uix.button import Button
