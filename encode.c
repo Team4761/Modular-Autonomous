@@ -89,3 +89,15 @@ void send(int data) {
   clear_pins();
   wait_for(wait);
 }
+
+extern "C" {
+	void lib_waitFor(double seconds) { wait_for(seconds); }
+	void lib_setupPin(int pin) { setup_pin(pin); }
+	void lib_setup() { setup(); }
+	void lib_cleanup() { cleanup(); }
+	void lib_write(int pina, int pinb) { write(pina, pinb); }
+	void lib_clearPins() { clear_pins(); }
+	void lib_lightBitPin(int bitn) { light_bit_pin(bitn); }
+	void lib_lightDataPin() { light_data_pin(); }
+    void lib_send(int i){ send(i); }
+}
