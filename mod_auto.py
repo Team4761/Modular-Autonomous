@@ -1,10 +1,9 @@
-from random import random
 from kivy.app import App
 from kivy.config import Config
 from kivy.uix.button import Button
 from kivy.graphics import Color, Ellipse, Line
 from kivy.uix.image import Image
-
+import joystick_protocol
 
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '480')
@@ -12,6 +11,7 @@ Config.set('graphics', 'height', '480')
 class MyPaintApp(App):
 	
 	defenses = ('Portcullis','Cheval\nde Frise','Moat','Ramparts','Drawbridge', 'Sally Port','Rock Wall', 'Rough Terrain')
+	abvr_defenses = ['po', 'fr', 'mo', 'ra', 'br','sa', 'rk', 'ro'] 
 	robot = ['', 'Robot']
 	loop = ['1', '2', '3']
 	Pickup_Drop = ['Pick Up', 'Drop']
@@ -22,12 +22,15 @@ class MyPaintApp(App):
 	position_index=[0,0,0,0,0]
 	high_low_index = ['High', 'Low']
 	spy_index=['Spy\n Position\n on','Spy\n Position\n off']
-	#return_index['Return On', 'Return Off']
+	return_index=['Return On', 'Return Off']
+	send_list=['lb', '', '', '', '','','']
 	
 	high_low_buttonindex=0
 	loop_button1_index=0
 	pick_drop_button1_index=0
-	Shot_Button_index=0
+	shot_Button_index=0
+	return_button_index=0
+	spy_button_index=0
 	#Puts together the window, and the widgets in it
 	def build(self):
 		parent = Image(source ='/home/dev2/dev/kivy/redside480.png')
@@ -181,17 +184,18 @@ class MyPaintApp(App):
 			
 	def spy_position_callback(self, obj):
 		if self.configmode == True:
-			obj.text = 'Spy\n Position\n on'
-		else:
-			self.configmode = True
-			obj.text = 'Spy\n Position\n off'
+			self.spy_button_index = self.spy_button_index + 1
+			if self.spy_button_index > 1:
+				self.spy_button_index = 0
+			obj.text=self.spy_index[self.spy_button_index]
 			
 	def shot_button_callback(self, obj):
 		if self.configmode == True:
-			self.Shot_Button_index = self.Shot_Button_index + 1
-			if self.Shot_Button_index > 2:
-				self.Shot_Button_index = 0
-			obj.text=self.shot_index[self.Shot_Button_index]
+			self.shot_Button_index = self.shot_Button_index + 1
+			if self.shot_Button_index > 2:
+				self.shot_Button_index = 0
+			obj.text=self.shot_index[self.shot_Button_index]
+			
 	def height_button_callback(self, obj):
 		if self.configmode == True:
 			self.high_low_buttonindex = self.high_low_buttonindex + 1
@@ -201,20 +205,56 @@ class MyPaintApp(App):
 			
 	def send_button1_callback(self, obj):
 		if self.configmode == True:
-			pass
+			abvr = self.abvr_defenses[self.button_index[3]]
+			print abvr
+			for c in abvr:
+				joystick_protocol.send(c)
+			joystick_protocol.send(c)
+			abvr = self.abvr_defenses[self.button_index[2]]
+			print abvr
+			for c in abvr:
+				joystick_protocol.send(c)
+			joystick_protocol.send(c)
+			abvr = self.abvr_defenses[self.button_index[1]]
+			print abvr
+			for c in abvr:
+				joystick_protocol.send(c)
+			joystick_protocol.send(c)
+			abvr = self.abvr_defenses[self.button_index[0]]
+			print abvr
+			for c in abvr:
+				joystick_protocol.send(c)
+			joystick_protocol.send(c)
+			
+			if postion_index[0] == 1:
+				joystick_protocol.send(r)
+				joystick_protocol.send(1)
+				joystick_protocol.send(0)
+			if postion_index[1] == 1:
+				joystick_protocol.send(r)
+				joystick_protocol.send(2)
+				joystick_protocol.send(0)
+			if postion_index[2] == 1:
+				joystick_protocol.send(r)
+				joystick_protocol.send(3)
+				joystick_protocol.send(0)
+			if postion_index[3] == 1:
+				joystick_protocol.send(r)
+				joystick_protocol.send(4)
+				joystick_protocol.send(0)
+			if postion_index[3] == 1:
+				joystick_protocol.send(r)
+				joystick_protocol.send(5)
+				joystick_protocol.send(0)
 			
 	def return_button_callback(self, obj):
 		if self.configmode == True:
-			obj.text = 'Return On'
-		else:
-			self.configmode = True
-			obj.text = 'Return Off'
+			self.return_button_index = self.return_button_index + 1
+			if self.return_button_index > 1:
+				self.return_button_index = 0
+			obj.text=self.return_index[self.return_button_index]
 			
 	def set_text_index(self, obj, list_index):
-		#print "checking for object"
-		
-		#print obj
-		#print self.position_button5
 		if self.position_button5 is obj:
 			self.position_index[4] = list_index
 		if self.position_button4 is obj:
