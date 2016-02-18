@@ -19,7 +19,7 @@ class MyPaintApp(App):
 	configmode = True
 	last_robot_button = None
 	button_index=[0,0,0,0]
-	position_index=[0,0,0,0,0]
+	position_index = [0,0,0,0,0]
 	high_low_index = ['High', 'Low']
 	spy_index=['Spy\n Position\n on','Spy\n Position\n off']
 	return_index=['Return On', 'Return Off']
@@ -85,8 +85,20 @@ class MyPaintApp(App):
 		self.shot_height_button = Button(text= self.high_low_index[0], pos=(200, 300), size=(100, 100)) 
 		self.shot_height_button.bind(on_release=self.height_button_callback)
 		
-		self.return_button = Button(text= 'RETURN', pos=(200, 200), size=(100, 100)) 
-		self.return_button.bind(on_release=self.return_button_callback)
+		self.return_button1 = Button(text= 'RETURN1', pos=(380, 28), size=(102, 75)) 
+		self.return_button1.bind(on_release=self.return_button1_callback)
+		
+		self.return_button2 = Button(text= 'RETURN2', pos=(380, 95), size=(102, 75)) 
+		self.return_button2.bind(on_release=self.return_button2_callback)
+		
+		self.return_button3 = Button(text= 'RETURN3', pos=(380, 168), size=(102, 75)) 
+		self.return_button3.bind(on_release=self.return_button3_callback)
+		
+		self.return_button4 = Button(text= 'RETURN4', pos=(380, 240), size=(102, 75)) 
+		self.return_button4.bind(on_release=self.return_button4_callback)
+		
+		self.return_button5 = Button(text= 'RETURN5', pos=(380, 313), size=(102, 75)) 
+		self.return_button5.bind(on_release=self.return_button5_callback)
 		
 		parent.add_widget(self.defense_button1)
 		parent.add_widget(self.defense_button2)
@@ -105,7 +117,11 @@ class MyPaintApp(App):
 		parent.add_widget(self.spy_position)
 		parent.add_widget(self.shot_button)
 		parent.add_widget(self.shot_height_button)
-		parent.add_widget(self.return_button)
+		parent.add_widget(self.return_button1)
+		parent.add_widget(self.return_button2)
+		parent.add_widget(self.return_button3)
+		parent.add_widget(self.return_button4)
+		parent.add_widget(self.return_button5)
 		return parent
 			
 	def defense_callback(self, obj, index):
@@ -169,18 +185,12 @@ class MyPaintApp(App):
 			if self.loop_button1_index > 2:
 				self.loop_button1_index = 0
 			obj.text=self.loop[self.loop_button1_index]
-			#print 'loop_button1'
 	def pick_drop_button1_callback(self, obj):
 		if self.configmode == True:
 			self.pick_drop_button1_index = self.pick_drop_button1_index + 1
 			if self.pick_drop_button1_index > 1:
 				self.pick_drop_button1_index = 0
 			obj.text=self.Pickup_Drop[self.pick_drop_button1_index]
-			#print 'pick_drop_button1'
-			
-	def send_button1_callback(self, obj):
-		if self.configmode == True:
-			pass
 			
 	def spy_position_callback(self, obj):
 		if self.configmode == True:
@@ -204,55 +214,64 @@ class MyPaintApp(App):
 			obj.text=self.high_low_index[self.high_low_buttonindex]
 			
 	def send_button1_callback(self, obj):
+		
 		if self.configmode == True:
 			abvr = self.abvr_defenses[self.button_index[3]]
 			print abvr
 			for c in abvr:
-				joystick_protocol.send(c)
-			joystick_protocol.send(c)
+				b = byte(c)
+				joystick_protocol.send(b)
+				'''
 			abvr = self.abvr_defenses[self.button_index[2]]
 			print abvr
 			for c in abvr:
 				joystick_protocol.send(c)
-			joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[1]]
 			print abvr
 			for c in abvr:
 				joystick_protocol.send(c)
-			joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[0]]
 			print abvr
 			for c in abvr:
-				joystick_protocol.send(c)
-			joystick_protocol.send(c)
-			
-			if postion_index[0] == 1:
-				joystick_protocol.send(r)
-				joystick_protocol.send(1)
-				joystick_protocol.send(0)
-			if postion_index[1] == 1:
-				joystick_protocol.send(r)
-				joystick_protocol.send(2)
-				joystick_protocol.send(0)
-			if postion_index[2] == 1:
-				joystick_protocol.send(r)
-				joystick_protocol.send(3)
-				joystick_protocol.send(0)
-			if postion_index[3] == 1:
-				joystick_protocol.send(r)
-				joystick_protocol.send(4)
-				joystick_protocol.send(0)
-			if postion_index[3] == 1:
-				joystick_protocol.send(r)
-				joystick_protocol.send(5)
-				joystick_protocol.send(0)
-			
-	def return_button_callback(self, obj):
+				joystick_protocol.send(c) 
+			'''
+			'''
+			if position_index[0] == 1:
+				joystick_protocol.send('r')
+				joystick_protocol.send('1')
+				joystick_protocol.send('0')
+			if position_index[1] == 1:
+				joystick_protocol.send('r')
+				joystick_protocol.send('2')
+				joystick_protocol.send('0')
+			if position_index[2] == 1:
+				joystick_protocol.send('r')
+				joystick_protocol.send('3')
+				joystick_protocol.send('0')
+			if position_index[3] == 1:
+				joystick_protocol.send('r')
+				joystick_protocol.send('4')
+				joystick_protocol.send('0')
+			if position_index[4] == 1:
+				joystick_protocol.send('r')
+				joystick_protocol.send('5')
+				joystick_protocol.send('0') 
+			'''
+	def return_button1_callback(self, obj):
 		if self.configmode == True:
-			self.return_button_index = self.return_button_index + 1
-			if self.return_button_index > 1:
-				self.return_button_index = 0
-			obj.text=self.return_index[self.return_button_index]
+			pass
+	def return_button2_callback(self, obj):
+		if self.configmode == True:
+			pass
+	def return_button3_callback(self, obj):
+		if self.configmode == True:
+			pass
+	def return_button4_callback(self, obj):
+		if self.configmode == True:
+			pass
+	def return_button5_callback(self, obj):
+		if self.configmode == True:
+			pass
 			
 	def set_text_index(self, obj, list_index):
 		if self.position_button5 is obj:
