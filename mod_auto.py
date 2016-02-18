@@ -218,45 +218,43 @@ class MyPaintApp(App):
 		if self.configmode == True:
 			abvr = self.abvr_defenses[self.button_index[3]]
 			print abvr
-			for c in abvr:
-				b = byte(c)
-				joystick_protocol.send(b)
-				'''
+			for c in list(abvr):
+				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[2]]
 			print abvr
-			for c in abvr:
+			for c in list(abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[1]]
 			print abvr
-			for c in abvr:
+			for c in list (abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[0]]
 			print abvr
-			for c in abvr:
+			for c in (abvr):
 				joystick_protocol.send(c) 
-			'''
-			'''
-			if position_index[0] == 1:
+			
+
+			if self.position_index[0] == 1:
 				joystick_protocol.send('r')
 				joystick_protocol.send('1')
 				joystick_protocol.send('0')
-			if position_index[1] == 1:
+			if self.position_index[1] == 1:
 				joystick_protocol.send('r')
 				joystick_protocol.send('2')
 				joystick_protocol.send('0')
-			if position_index[2] == 1:
+			if self.position_index[2] == 1:
 				joystick_protocol.send('r')
 				joystick_protocol.send('3')
 				joystick_protocol.send('0')
-			if position_index[3] == 1:
+			if self.position_index[3] == 1:
 				joystick_protocol.send('r')
 				joystick_protocol.send('4')
 				joystick_protocol.send('0')
-			if position_index[4] == 1:
+			if self.position_index[4] == 1:
 				joystick_protocol.send('r')
 				joystick_protocol.send('5')
 				joystick_protocol.send('0') 
-			'''
+			
 	def return_button1_callback(self, obj):
 		if self.configmode == True:
 			pass
