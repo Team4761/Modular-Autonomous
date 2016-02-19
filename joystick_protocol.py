@@ -26,4 +26,4 @@ def light_data_pin():
 	lib.lib_lightDataPin()
 
 def send(data):
-	lib.lib_send(data)
+	lib.lib_send(ord(data))
