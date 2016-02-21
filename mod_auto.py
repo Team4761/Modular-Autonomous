@@ -13,13 +13,16 @@ class MyPaintApp(App):
 	defenses = ('Portcullis','Cheval\nde Frise','Moat','Ramparts','Drawbridge', 'Sally Port','Rock Wall', 'Rough Terrain')
 	abvr_defenses = ['po', 'fr', 'mo', 'ra', 'br','sa', 'rk', 'ro'] 
 	robot = ['', 'Robot']
+	robot_return = ['', 'Return']
 	loop = ['1', '2', '3']
 	Pickup_Drop = ['Pick Up', 'Drop']
 	shot_index = ['Right', 'Middle', 'Left']
 	configmode = True
 	last_robot_button = None
+	last_robot_button2 = None 
 	button_index=[0,0,0,0]
 	position_index = [0,0,0,0,0]
+	position_index2 = [0,0,0,0,0]
 	high_low_index = ['High', 'Low']
 	spy_index=['Spy\n Position\n on','Spy\n Position\n off']
 	return_index=['Return On', 'Return Off']
@@ -85,19 +88,19 @@ class MyPaintApp(App):
 		self.shot_height_button = Button(text= self.high_low_index[0], pos=(200, 300), size=(100, 100)) 
 		self.shot_height_button.bind(on_release=self.height_button_callback)
 		
-		self.return_button1 = Button(text= 'RETURN1', pos=(380, 28), size=(102, 75)) 
+		self.return_button1 = Button(text= '', pos=(380, 28), size=(102, 75)) 
 		self.return_button1.bind(on_release=self.return_button1_callback)
 		
-		self.return_button2 = Button(text= 'RETURN2', pos=(380, 95), size=(102, 75)) 
+		self.return_button2 = Button(text= '', pos=(380, 95), size=(102, 75)) 
 		self.return_button2.bind(on_release=self.return_button2_callback)
 		
-		self.return_button3 = Button(text= 'RETURN3', pos=(380, 168), size=(102, 75)) 
+		self.return_button3 = Button(text= '', pos=(380, 168), size=(102, 75)) 
 		self.return_button3.bind(on_release=self.return_button3_callback)
 		
-		self.return_button4 = Button(text= 'RETURN4', pos=(380, 240), size=(102, 75)) 
+		self.return_button4 = Button(text= '', pos=(380, 240), size=(102, 75)) 
 		self.return_button4.bind(on_release=self.return_button4_callback)
 		
-		self.return_button5 = Button(text= 'RETURN5', pos=(380, 313), size=(102, 75)) 
+		self.return_button5 = Button(text= '', pos=(380, 313), size=(102, 75)) 
 		self.return_button5.bind(on_release=self.return_button5_callback)
 		
 		parent.add_widget(self.defense_button1)
@@ -218,11 +221,11 @@ class MyPaintApp(App):
 		if self.configmode == True:
 			abvr = self.abvr_defenses[self.button_index[3]]
 			print abvr
-			for c in list(abvr):
+			for c in list (abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[2]]
 			print abvr
-			for c in list(abvr):
+			for c in list (abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[1]]
 			print abvr
@@ -230,7 +233,7 @@ class MyPaintApp(App):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[0]]
 			print abvr
-			for c in (abvr):
+			for c in list (abvr):
 				joystick_protocol.send(c) 
 			
 
@@ -254,22 +257,27 @@ class MyPaintApp(App):
 				joystick_protocol.send('r')
 				joystick_protocol.send('5')
 				joystick_protocol.send('0') 
-			
-	def return_button1_callback(self, obj):
+	def robot_start_position_callback2(self, obj, index):
 		if self.configmode == True:
-			pass
+			self.position_index2[index] = self.position_index2[index] + 1
+			if self.position_index2[index] > 1:
+				self.position_index2[index] = 0
+			obj.text=self.robot_return[self.position_index2[index]]
+			if self.position_index2[index] == 1 and obj != self.last_robot_button2:
+				if self.last_robot_button2 is not None:
+					self.last_robot_button2.text = self.robot_return[0]
+				self.set_text_index(self.last_robot_button2, 0)
+				self.last_robot_button2 = obj
+	def return_button1_callback(self, obj,):
+		self.robot_start_position_callback2(obj, 0) 
 	def return_button2_callback(self, obj):
-		if self.configmode == True:
-			pass
+		self.robot_start_position_callback2(obj, 1) 
 	def return_button3_callback(self, obj):
-		if self.configmode == True:
-			pass
+		self.robot_start_position_callback2(obj, 2) 
 	def return_button4_callback(self, obj):
-		if self.configmode == True:
-			pass
+		self.robot_start_position_callback2(obj, 3) 
 	def return_button5_callback(self, obj):
-		if self.configmode == True:
-			pass
+		self.robot_start_position_callback2(obj, 4) 
 			
 	def set_text_index(self, obj, list_index):
 		if self.position_button5 is obj:
@@ -281,6 +289,6 @@ class MyPaintApp(App):
 		if self.position_button2 is obj:
 			self.position_index[1] = list_index		
 		if self.position_button1 is obj:
-			self.position_index[0] = list_index	
+			self.position_index[0] = list_index			
 if __name__ == '__main__':
 	MyPaintApp().run()
