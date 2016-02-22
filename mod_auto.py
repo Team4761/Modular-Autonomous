@@ -257,6 +257,26 @@ class MyPaintApp(App):
 				joystick_protocol.send('r')
 				joystick_protocol.send('5')
 				joystick_protocol.send('0') 
+			if self.position_index2[0] == 1:
+				joystick_protocol.send('t')
+				joystick_protocol.send('1')
+				joystick_protocol.send('0')
+			if self.position_index2[1] == 1:
+				joystick_protocol.send('t')
+				joystick_protocol.send('2')
+				joystick_protocol.send('0')
+			if self.position_index2[2] == 1:
+				joystick_protocol.send('t')
+				joystick_protocol.send('3')
+				joystick_protocol.send('0')
+			if self.position_index2[3] == 1:
+				joystick_protocol.send('t')
+				joystick_protocol.send('4')
+				joystick_protocol.send('0')
+			if self.position_index[4] == 1:
+				joystick_protocol.send('t')
+				joystick_protocol.send('5')
+				joystick_protocol.send('0')
 	def robot_start_position_callback2(self, obj, index):
 		if self.configmode == True:
 			self.position_index2[index] = self.position_index2[index] + 1
