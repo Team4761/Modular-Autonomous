@@ -16,7 +16,6 @@ class MyPaintApp(App):
 	robot_return = ['', 'Return']
 	loop = ['1', '2', '3']
 	Pickup_Drop = ['Pick Up', 'Drop']
-	shot_index = ['Right', 'Middle', 'Left']
 	configmode = True
 	last_robot_button = None
 	last_robot_button2 = None 
@@ -31,12 +30,11 @@ class MyPaintApp(App):
 	high_low_buttonindex=0
 	loop_button1_index=0
 	pick_drop_button1_index=0
-	shot_Button_index=0
 	return_button_index=0
 	spy_button_index=0
 	#Puts together the window, and the widgets in it
 	def build(self):
-		parent = Image(source ='/home/dev2/dev/kivy/redside480.png')
+		parent = Image(source ='redside480.png')
 		
 		self.defense_button1 = Button(text='Low Bar', pos=(480, 28), size=(100, 75))
 		
@@ -82,9 +80,6 @@ class MyPaintApp(App):
 		self.spy_position = Button(text='Spy Position', pos=(0, 100), size=(100, 100)) 
 		self.spy_position.bind(on_release=self.spy_position_callback)
 		
-		self.shot_button = Button(text= self.shot_index[0], pos=(100, 200), size=(100, 100)) 
-		self.shot_button.bind(on_release=self.shot_button_callback)
-		
 		self.shot_height_button = Button(text= self.high_low_index[0], pos=(200, 300), size=(100, 100)) 
 		self.shot_height_button.bind(on_release=self.height_button_callback)
 		
@@ -118,7 +113,6 @@ class MyPaintApp(App):
 		parent.add_widget(self.pick_drop_button1)
 		parent.add_widget(self.send_button1)
 		parent.add_widget(self.spy_position)
-		parent.add_widget(self.shot_button)
 		parent.add_widget(self.shot_height_button)
 		parent.add_widget(self.return_button1)
 		parent.add_widget(self.return_button2)
@@ -201,13 +195,6 @@ class MyPaintApp(App):
 			if self.spy_button_index > 1:
 				self.spy_button_index = 0
 			obj.text=self.spy_index[self.spy_button_index]
-			
-	def shot_button_callback(self, obj):
-		if self.configmode == True:
-			self.shot_Button_index = self.shot_Button_index + 1
-			if self.shot_Button_index > 2:
-				self.shot_Button_index = 0
-			obj.text=self.shot_index[self.shot_Button_index]
 			
 	def height_button_callback(self, obj):
 		if self.configmode == True:
