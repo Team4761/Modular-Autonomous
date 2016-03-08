@@ -273,7 +273,7 @@ class MyPaintApp(App):
 			if self.position_index2[index] == 1 and obj != self.last_robot_button2:
 				if self.last_robot_button2 is not None:
 					self.last_robot_button2.text = self.robot_return[0]
-				self.set_text_index(self.last_robot_button2, 0)
+				self.set_text_index2(self.last_robot_button2, 0)
 				self.last_robot_button2 = obj
 	def return_button1_callback(self, obj,):
 		self.robot_start_position_callback2(obj, 0) 
@@ -286,6 +286,18 @@ class MyPaintApp(App):
 	def return_button5_callback(self, obj):
 		self.robot_start_position_callback2(obj, 4) 
 			
+	def set_text_index2(self, obj, list_index2):
+		if self.return_button5 is obj:
+			self.position_index2[4] = list_index2
+		if self.return_button4 is obj:
+			self.position_index2[3] = list_index2
+		if self.return_button3 is obj:
+			self.position_index2[2] = list_index2
+		if self.return_button2 is obj:
+			self.position_index2[1] = list_index2		
+		if self.return_button1 is obj:
+			self.position_index2[0] = list_index2	
+					
 	def set_text_index(self, obj, list_index):
 		if self.position_button5 is obj:
 			self.position_index[4] = list_index
