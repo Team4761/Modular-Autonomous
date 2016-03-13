@@ -4,7 +4,8 @@ import org.robockets.stronghold.robot.Robot;
 
 public class GetBytes {
 	
-	int[] bitPins = {14, 13, 12, 10, 9, 8, 4}; 
+	final int[] bitPins = {2, 3, 4, 5, 7, 10, 17}; 
+	final int dataPin = 6;
 	String binaryInput = "0";
 	
 	public GetBytes(){
@@ -12,7 +13,7 @@ public class GetBytes {
 	}
 	
 	public boolean isReady(){
-		return Robot.oi.gamepad.getRawButton(11);
+		return Robot.oi.gamepad.getRawButton(dataPin);
 	}
 	
 	public void waitUntilReady(){
