@@ -1,5 +1,7 @@
-
 package org.robockets.stronghold.robot;
+
+import org.robockets.stronghold.robot.OI;
+import org.robockets.stronghold.robot.modauto.GetBytes;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,15 +18,18 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
-    Command autonomousCommand;
+	public static GetBytes getBytes;
+	
+	Command teleop;
+	Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
+	    oi = new OI();
+	    getBytes = new GetBytes();
     }
 	
 	/**
@@ -32,8 +37,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
-    public void disabledInit(){
-
+    public void disabledInit() {
     }
 	
 	public void disabledPeriodic() {
@@ -49,7 +53,11 @@ public class Robot extends IterativeRobot {
 	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
-    public void autonomousInit() {
+    public void autonomousInit() {        
+    	// schedule the autonomous command (example)
+    	getBytes.resetAll();
+    	getBytes.waitUntilReady();
+    	System.out.println(getBytes.decToAscii(getBytes.stringToDec(getBytes.toBinaryString())));
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -66,6 +74,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        //(new UpdateDashboard()).start();
     }
 
     /**
