@@ -4,6 +4,7 @@ from kivy.uix.button import Button
 from kivy.graphics import Color, Ellipse, Line
 from kivy.uix.image import Image
 import joystick_protocol
+import encode
 
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '480')
@@ -207,19 +208,19 @@ class MyPaintApp(App):
 		
 		if self.configmode == True:
 			abvr = self.abvr_defenses[self.button_index[3]]
-			print abvr
+			print (abvr)
 			for c in list (abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[2]]
-			print abvr
+			print (abvr)
 			for c in list (abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[1]]
-			print abvr
+			print (abvr)
 			for c in list (abvr):
 				joystick_protocol.send(c)
 			abvr = self.abvr_defenses[self.button_index[0]]
-			print abvr
+			print (abvr)
 			for c in list (abvr):
 				joystick_protocol.send(c) 
 			

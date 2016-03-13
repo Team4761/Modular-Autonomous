@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
     	// schedule the autonomous command (example)
     	getBytes.resetAll();
     	getBytes.waitUntilReady();
-    	System.out.println(getBytes.decToAscii(getBytes.stringToDec(getBytes.toBinaryString())));
+    	System.out.println(getBytes.decToAscii(getBytes.stringToDec(getBytes.toBinaryString()))); //THIS PRINTS OUT WHAT MICHAEL SENDS
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
