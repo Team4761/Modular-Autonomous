@@ -7,6 +7,7 @@ public class GetBytes {
 	final int[] bitPins = {2, 3, 4, 5, 7, 10, 17}; 
 	final int dataPin = 6;
 	String binaryInput = "0";
+	String newData = "";
 	
 	public GetBytes(){
 		
@@ -40,7 +41,12 @@ public class GetBytes {
 	}
 	
 	public String decToAscii(int asciiCode){
-		return Character.toString((char) asciiCode);
+		if(Character.toString((char) asciiCode) == "0") {
+			return newData;
+		} else {
+			newData += Character.toString((char)asciiCode);
+			return null;
+		}
 	}
 	
 }
